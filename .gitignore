@@ -1,5 +1,10 @@
+# Database
+todos.db
+
+# Python Cache
 __pycache__/
-*.db
-.venv/
-env/
+*.pyc
+
+# Virtual Environments (if you are using one)
 venv/
+env/
