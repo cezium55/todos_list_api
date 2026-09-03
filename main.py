@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -9,7 +10,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 # 1. Configuration Constants
-SECRET_KEY = "my-super-secret-key-that-nobody-knows"
+SECRET_KEY = os.environ["SECRET_KEY"]
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -45,7 +46,7 @@ def get_db():
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="could not validate credentials", # <-- Fixed missing comma here
+        detail="could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     
